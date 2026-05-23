@@ -1,0 +1,59 @@
+## .NET
+*.user
+*.suo
+*.userprefs
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+*.pidb
+*.svclog
+*.scc
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+*.ncrunch*
+*.dotCover
+publish/
+PublishScripts/
+*.nuget.dgspec.json
+*.nuget.g.props
+*.nuget.g.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+nupkgs/
+*.nupkg
+*.snupkg
+packages/
+!**/packages/repositories.config
+!**/packages/build/
+!**/packages/repositories.config
+*.lock
+
+## OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+## Rider
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+
+## Serilog output
+logs/
+*.log
+# Added by code-review-graph
+.code-review-graph/
