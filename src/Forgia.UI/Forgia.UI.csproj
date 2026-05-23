@@ -37,7 +37,6 @@
   <ItemGroup>
     <EmbeddedResource Update="Resources\Strings.resx">
       <ManifestResourceName>Forgia.UI.Resources.Strings</ManifestResourceName>
-      <LogicalName>Forgia.UI.Resources.Strings</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
