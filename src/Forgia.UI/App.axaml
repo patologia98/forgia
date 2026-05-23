@@ -1,10 +1,21 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Forgia.UI.ViewModels"
+             xmlns:views="using:Forgia.UI.Views"
              x:Class="Forgia.UI.App"
              RequestedThemeVariant="Default">
 
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
+
+    <Application.DataTemplates>
+        <DataTemplate DataType="{x:Type vm:SetupViewModel}">
+            <views:SetupView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NewQuoteViewModel}">
+            <views:NewQuoteView/>
+        </DataTemplate>
+    </Application.DataTemplates>
 
 </Application>

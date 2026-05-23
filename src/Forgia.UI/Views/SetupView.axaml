@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Forgia.UI.ViewModels"
+             xmlns:res="using:Forgia.UI.Resources"
+             x:Class="Forgia.UI.Views.SetupView"
+             x:DataType="vm:SetupViewModel">
+
+    <ScrollViewer>
+        <StackPanel MaxWidth="520" Margin="40" Spacing="16"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <TextBlock Text="{x:Static res:Strings.SetupTitle}"
+                       FontSize="24" FontWeight="Bold"/>
+            <TextBlock Text="{x:Static res:Strings.SetupSubtitle}"
+                       Opacity="0.7" TextWrapping="Wrap"/>
+
+            <!-- Printer section -->
+            <Border BorderThickness="1" CornerRadius="6" Padding="16"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{x:Static res:Strings.SetupSectionPrinter}"
+                               FontWeight="SemiBold" FontSize="13"/>
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" HorizontalAlignment="Stretch">
+                        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelName}"
+                               VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PrinterName}"
+                                 Margin="0,2"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelPowerW}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding PowerW}"
+                                       Minimum="1" Maximum="9999" Increment="50" Margin="0,2"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelPurchaseCost}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding PurchaseCost}"
+                                       Minimum="0" FormatString="F2" Margin="0,2"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelUsefulLifeH}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="0" Grid.Column="1" Value="{Binding UsefulLifeH}"
+                                       Minimum="1" Increment="1000" FormatString="F0" Margin="0,2"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelMaintenancePerH}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding MaintenanceCostPerH}"
+                                       Minimum="0" FormatString="F4" Increment="0.01m" Margin="0,2"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Spool section -->
+            <Border BorderThickness="1" CornerRadius="6" Padding="16"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{x:Static res:Strings.SetupSectionSpool}"
+                               FontWeight="SemiBold" FontSize="13"/>
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelName}"
+                               VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SpoolName}" Margin="0,2"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelMaterial}"
+                               VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Material}" Margin="0,2"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelCostPerKg}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding CostPerKg}"
+                                       Minimum="0" FormatString="F2" Margin="0,2"/>
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelCurrentStock}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="3" Grid.Column="1" Value="{Binding CurrentStockG}"
+                                       Minimum="0" FormatString="F0" Increment="100" Margin="0,2"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red"
+                       IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                       TextWrapping="Wrap"/>
+
+            <Button Content="{x:Static res:Strings.SetupButtonSave}"
+                    Command="{Binding SaveCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    IsEnabled="{Binding !IsBusy}"/>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>

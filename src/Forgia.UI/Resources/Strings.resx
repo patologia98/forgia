@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="xml:space" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+
+  <data name="AppTitle" xml:space="preserve"><value>Forgia</value></data>
+
+  <data name="SetupTitle" xml:space="preserve"><value>Welcome to Forgia</value></data>
+  <data name="SetupSubtitle" xml:space="preserve"><value>Add your first printer and filament spool to get started.</value></data>
+  <data name="SetupSectionPrinter" xml:space="preserve"><value>Printer</value></data>
+  <data name="SetupSectionSpool" xml:space="preserve"><value>Filament Spool</value></data>
+  <data name="SetupLabelName" xml:space="preserve"><value>Name</value></data>
+  <data name="SetupLabelPowerW" xml:space="preserve"><value>Power (W)</value></data>
+  <data name="SetupLabelPurchaseCost" xml:space="preserve"><value>Purchase cost (€)</value></data>
+  <data name="SetupLabelUsefulLifeH" xml:space="preserve"><value>Useful life (h)</value></data>
+  <data name="SetupLabelMaintenancePerH" xml:space="preserve"><value>Maintenance (€/h)</value></data>
+  <data name="SetupLabelMaterial" xml:space="preserve"><value>Material</value></data>
+  <data name="SetupLabelCostPerKg" xml:space="preserve"><value>Cost per kg (€)</value></data>
+  <data name="SetupLabelCurrentStock" xml:space="preserve"><value>Stock (g)</value></data>
+  <data name="SetupButtonSave" xml:space="preserve"><value>Save and Continue</value></data>
+
+  <data name="QuoteTitle" xml:space="preserve"><value>New Quote</value></data>
+  <data name="QuoteSectionFile" xml:space="preserve"><value>Slicer File</value></data>
+  <data name="QuoteBrowseButton" xml:space="preserve"><value>Browse…</value></data>
+  <data name="QuoteDropHint" xml:space="preserve"><value>Drop .gcode.3mf or .gcode here</value></data>
+  <data name="QuoteSectionSettings" xml:space="preserve"><value>Print Settings</value></data>
+  <data name="QuoteLabelPrinter" xml:space="preserve"><value>Printer</value></data>
+  <data name="QuoteLabelSpool" xml:space="preserve"><value>Filament Spool</value></data>
+  <data name="QuoteLabelElectricity" xml:space="preserve"><value>Electricity (€/kWh)</value></data>
+  <data name="QuoteLabelWaste" xml:space="preserve"><value>Waste rate (%)</value></data>
+  <data name="QuoteSectionQuote" xml:space="preserve"><value>Quote Settings</value></data>
+  <data name="QuoteLabelMargin" xml:space="preserve"><value>Margin (%)</value></data>
+  <data name="QuoteLabelVat" xml:space="preserve"><value>VAT (%)</value></data>
+  <data name="QuoteLabelCustomer" xml:space="preserve"><value>Customer name</value></data>
+  <data name="QuoteSectionBreakdown" xml:space="preserve"><value>Cost Breakdown</value></data>
+  <data name="QuoteLabelMaterial" xml:space="preserve"><value>Material</value></data>
+  <data name="QuoteLabelElectricityCost" xml:space="preserve"><value>Electricity</value></data>
+  <data name="QuoteLabelAmortization" xml:space="preserve"><value>Amortization</value></data>
+  <data name="QuoteLabelMaintenance" xml:space="preserve"><value>Maintenance</value></data>
+  <data name="QuoteLabelWasteOverhead" xml:space="preserve"><value>Waste overhead</value></data>
+  <data name="QuoteLabelPlateCost" xml:space="preserve"><value>Plate cost</value></data>
+  <data name="QuoteLabelLabor" xml:space="preserve"><value>Labor</value></data>
+  <data name="QuoteLabelDirect" xml:space="preserve"><value>Direct cost</value></data>
+  <data name="QuoteLabelMarginAmount" xml:space="preserve"><value>Margin</value></data>
+  <data name="QuoteLabelVatAmount" xml:space="preserve"><value>VAT</value></data>
+  <data name="QuoteLabelTotal" xml:space="preserve"><value>TOTAL</value></data>
+  <data name="QuoteExportButton" xml:space="preserve"><value>Export PDF</value></data>
+  <data name="QuoteNewQuoteButton" xml:space="preserve"><value>New Quote</value></data>
+
+  <data name="ErrorParseFile" xml:space="preserve"><value>Could not parse file: {0}</value></data>
+  <data name="ErrorExportFailed" xml:space="preserve"><value>PDF export failed: {0}</value></data>
+</root>

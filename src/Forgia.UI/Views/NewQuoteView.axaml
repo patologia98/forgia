@@ -1,0 +1,190 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Forgia.UI.ViewModels"
+             xmlns:res="using:Forgia.UI.Resources"
+             xmlns:domain="using:Forgia.Domain.Entities"
+             x:Class="Forgia.UI.Views.NewQuoteView"
+             x:DataType="vm:NewQuoteViewModel">
+
+    <ScrollViewer>
+        <StackPanel MaxWidth="640" Margin="40" Spacing="16" HorizontalAlignment="Center">
+
+            <TextBlock Text="{x:Static res:Strings.QuoteTitle}"
+                       FontSize="24" FontWeight="Bold"/>
+
+            <!-- File section -->
+            <Border x:Name="DropZone"
+                    BorderThickness="2" CornerRadius="8" Padding="20"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+                    Background="Transparent">
+                <StackPanel Spacing="8" HorizontalAlignment="Center">
+                    <TextBlock Text="{x:Static res:Strings.QuoteDropHint}"
+                               HorizontalAlignment="Center" Opacity="0.6"/>
+                    <Button Content="{x:Static res:Strings.QuoteBrowseButton}"
+                            Command="{Binding BrowseFileCommand}"
+                            HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding SelectedFilePath}"
+                               IsVisible="{Binding SelectedFilePath, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                               FontFamily="Monospace" FontSize="11" TextWrapping="Wrap"
+                               HorizontalAlignment="Center" Opacity="0.8"/>
+                    <TextBlock Text="{Binding ParseError}"
+                               IsVisible="{Binding ParseError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                               Foreground="Red" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Print time + filament summary (shown after parse) -->
+            <Border IsVisible="{Binding HasBreakdown}"
+                    BorderThickness="1" CornerRadius="6" Padding="12"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+                <Grid ColumnDefinitions="*,*,*,*">
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="Print time" FontSize="11" Opacity="0.6" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding PrintTimeDisplay}" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock Text="Filament" FontSize="11" Opacity="0.6" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding FilamentDisplay}" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Print settings -->
+            <Border BorderThickness="1" CornerRadius="6" Padding="16"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{x:Static res:Strings.QuoteSectionSettings}"
+                               FontWeight="SemiBold" FontSize="13"/>
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto">
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static res:Strings.QuoteLabelPrinter}"
+                               VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1"
+                                  ItemsSource="{Binding Printers}"
+                                  SelectedItem="{Binding SelectedPrinter}"
+                                  HorizontalAlignment="Stretch" Margin="0,2">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="domain:Printer">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static res:Strings.QuoteLabelSpool}"
+                               VerticalAlignment="Center"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1"
+                                  ItemsSource="{Binding Spools}"
+                                  SelectedItem="{Binding SelectedSpool}"
+                                  HorizontalAlignment="Stretch" Margin="0,2">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="domain:FilamentSpool">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static res:Strings.QuoteLabelElectricity}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding ElectricityRate}"
+                                       Minimum="0" Increment="0.01" FormatString="F4" Margin="0,2"/>
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="{x:Static res:Strings.QuoteLabelWaste}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="3" Grid.Column="1" Value="{Binding WastePercent}"
+                                       Minimum="0" Maximum="100" Increment="1" FormatString="F1" Margin="0,2"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Quote settings -->
+            <Border BorderThickness="1" CornerRadius="6" Padding="16"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+                <StackPanel Spacing="8">
+                    <TextBlock Text="{x:Static res:Strings.QuoteSectionQuote}"
+                               FontWeight="SemiBold" FontSize="13"/>
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto">
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static res:Strings.QuoteLabelCustomer}"
+                               VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CustomerName}" Margin="0,2"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static res:Strings.QuoteLabelMargin}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding MarginPercent}"
+                                       Minimum="0" Maximum="500" Increment="1" FormatString="F1" Margin="0,2"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static res:Strings.QuoteLabelVat}"
+                               VerticalAlignment="Center"/>
+                        <NumericUpDown Grid.Row="2" Grid.Column="1" Value="{Binding VatPercent}"
+                                       Minimum="0" Maximum="100" Increment="1" FormatString="F1" Margin="0,2"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Cost breakdown -->
+            <Border IsVisible="{Binding HasBreakdown}"
+                    BorderThickness="1" CornerRadius="6" Padding="16"
+                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+                <StackPanel Spacing="6">
+                    <TextBlock Text="{x:Static res:Strings.QuoteSectionBreakdown}"
+                               FontWeight="SemiBold" FontSize="13"/>
+
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,1,Auto,Auto,1,Auto,Auto,Auto">
+                        <!-- Plate breakdown -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelMaterial}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding PlateResult.MaterialCost, StringFormat='€ {0:F4}'}" FontFamily="Monospace"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelElectricityCost}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding PlateResult.ElectricityCost, StringFormat='€ {0:F4}'}" FontFamily="Monospace"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelAmortization}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding PlateResult.Amortization, StringFormat='€ {0:F4}'}" FontFamily="Monospace"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelMaintenance}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding PlateResult.Maintenance, StringFormat='€ {0:F4}'}" FontFamily="Monospace"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelWasteOverhead}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding PlateResult.WasteOverhead, StringFormat='€ {0:F4}'}" FontFamily="Monospace"/>
+
+                        <TextBlock Grid.Row="5" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelPlateCost}" FontWeight="SemiBold"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding PlateResult.PlateCost, StringFormat='€ {0:F2}'}" FontFamily="Monospace" FontWeight="SemiBold"/>
+
+                        <Separator Grid.Row="6" Grid.ColumnSpan="2" Margin="0,4"/>
+
+                        <!-- Order totals -->
+                        <TextBlock Grid.Row="7" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelLabor}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding OrderResult.LaborCost, StringFormat='€ {0:F2}'}" FontFamily="Monospace"/>
+
+                        <TextBlock Grid.Row="8" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelDirect}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding OrderResult.DirectCost, StringFormat='€ {0:F2}'}" FontFamily="Monospace"/>
+
+                        <Separator Grid.Row="9" Grid.ColumnSpan="2" Margin="0,4"/>
+
+                        <TextBlock Grid.Row="10" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelMarginAmount}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="10" Grid.Column="1"
+                                   Text="{Binding OrderResult.DirectCost, StringFormat='€ {0:F2}'}"
+                                   FontFamily="Monospace"/>
+
+                        <TextBlock Grid.Row="11" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelVatAmount}" Opacity="0.8"/>
+                        <TextBlock Grid.Row="11" Grid.Column="1" FontFamily="Monospace"
+                                   Text="{Binding OrderResult.DirectCost, StringFormat='€ {0:F2}'}"/>
+
+                        <TextBlock Grid.Row="12" Grid.Column="0" Text="{x:Static res:Strings.QuoteLabelTotal}"
+                                   FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Grid.Row="12" Grid.Column="1" Text="{Binding OrderResult.QuoteTotal, StringFormat='€ {0:F2}'}"
+                                   FontFamily="Monospace" FontWeight="Bold" FontSize="14"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Button Content="{x:Static res:Strings.QuoteExportButton}"
+                    Command="{Binding ExportPdfCommand}"
+                    IsVisible="{Binding HasBreakdown}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    FontSize="14"/>
+
+        </StackPanel>
+    </ScrollViewer>
+
+</UserControl>
