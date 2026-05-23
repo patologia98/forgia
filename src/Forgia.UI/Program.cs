@@ -5,6 +5,7 @@ using Forgia.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using QuestPDF.Infrastructure;
 using Serilog;
 
 namespace Forgia.UI;
@@ -18,6 +19,8 @@ class Program
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "Forgia");
         Directory.CreateDirectory(appDataPath);
+
+        QuestPDF.Settings.License = LicenseType.Community;
 
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
