@@ -1,0 +1,52 @@
+# Phase 1 — Vertical slice (awaiting owner answers)
+
+Status: PENDING CONFIRMATION — do not implement until owner answers the 3 questions below.
+
+---
+
+## Implementation order
+
+**Step 1 — Domain entities** (`Forgia.Domain`)
+- `Printer` — name, power_w (int), purchase_cost (decimal), useful_life_h (decimal), maintenance_€_per_h (decimal)
+- `FilamentSpool` — name, material, cost_per_kg (decimal), current stock
+- `Customer` — name, contact
+- `Order` — customer ref, created date, margin_rate, vat_rate
+- `Project` — order ref, name
+- `Plate` — project ref, printer ref, spool ref, print_time (TimeSpan), filament_usage_g (decimal), waste_rate
+- `LaborActivity` — order ref, description, minutes (decimal), hourly_rate (decimal)
+- `QuoteCalculator` — full formula per CLAUDE.md, canonical in `Domain/Pricing/`
+
+**Step 2 — Unit tests** (`Forgia.Domain.Tests`)
+- All formula branches on `QuoteCalculator` (mandatory per GUIDELINES)
+
+**Step 3 — Infrastructure** (`Forgia.Infrastructure`)
+- EF Core mappings for all entities (no generic repos)
+- `ForgiaDbContext` populated with DbSets
+- New EF migration
+
+**Step 4 — File parsers** (`Forgia.Infrastructure`)
+- 3MF parser → extracts print time + filament usage from `.3mf` metadata
+- G-code parser → extracts same from slicer comments (`;` lines)
+
+**Step 5 — PDF export** (`Forgia.Infrastructure`)
+- QuestPDF document: customer, order lines, cost breakdown, total
+
+**Step 6 — UI wizard** (`Forgia.UI`)
+- File drop (drag + browse) → auto-detect 3MF/G-code
+- Printer + filament spool pickers (seeded from DB)
+- Cost breakdown display (live-calculated)
+- Export PDF button
+- `Strings.resx` for all user-facing strings
+
+**Step 7 — Seed data** (dev only, not shipping)
+- One example printer + spool so wizard works on first launch
+
+**Step 8 — Migration + MEMORY.md entry + commits**
+
+---
+
+## Open questions (owner must answer before implementation)
+
+1. Should `Customer` be included in the wizard for Phase 1, or is a placeholder name enough to get a PDF out?
+2. For the 3MF parser — slicer metadata format varies (PrusaSlicer, Bambu, Cura). Which slicer(s) should be targeted for the "done when" criterion?
+3. Seed data: hardcode one Bambu P1S + one PLA spool, or prompt the user on first launch?
