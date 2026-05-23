@@ -20,4 +20,10 @@
     <ProjectReference Include="..\..\src\Forgia.Infrastructure\Forgia.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Classic_Ikea_handle_(BESTA).gcode.3mf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
