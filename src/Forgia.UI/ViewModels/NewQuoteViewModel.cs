@@ -87,7 +87,7 @@ public partial class NewQuoteViewModel : ViewModelBase
     [RelayCommand]
     private async Task BrowseFileAsync(CancellationToken ct)
     {
-        var path = await _dialogs.OpenSliceFileAsync().ConfigureAwait(false);
+        var path = await _dialogs.OpenSliceFileAsync();
         if (path is not null)
             LoadFile(path);
     }
@@ -99,33 +99,36 @@ public partial class NewQuoteViewModel : ViewModelBase
             ? $"quote_{DateTime.Now:yyyyMMdd}.pdf"
             : $"quote_{CustomerName}_{DateTime.Now:yyyyMMdd}.pdf";
 
-        var path = await _dialogs.SavePdfAsync(suggestedName).ConfigureAwait(false);
+        // stay on UI thread for dialog, then capture values before going to thread pool
+        var path = await _dialogs.SavePdfAsync(suggestedName);
         if (path is null) return;
+
+        var order = new Order
+        {
+            Customer = new Customer { Name = string.IsNullOrWhiteSpace(CustomerName) ? "—" : CustomerName },
+            CreatedAt = DateTime.Now,
+            MarginRate = MarginPercent / 100m,
+            VatRate = VatPercent / 100m,
+            LaborActivities = [],
+        };
+        var plate = new Plate
+        {
+            PrintTime = _parsedData!.PrintTime,
+            FilamentUsageG = _parsedData.FilamentUsageG,
+            WasteRate = WastePercent / 100m,
+        };
+        var plateResult = PlateResult!;
+        var orderResult = OrderResult!;
+        var electricityRate = ElectricityRate;
+        var printer = SelectedPrinter!;
+        var spool = SelectedSpool!;
 
         IsBusy = true;
         try
         {
-            var order = new Order
-            {
-                Customer = new Customer { Name = string.IsNullOrWhiteSpace(CustomerName) ? "—" : CustomerName },
-                CreatedAt = DateTime.Now,
-                MarginRate = MarginPercent / 100m,
-                VatRate = VatPercent / 100m,
-                LaborActivities = [],
-            };
-            var plate = new Plate
-            {
-                PrintTime = _parsedData!.PrintTime,
-                FilamentUsageG = _parsedData.FilamentUsageG,
-                WasteRate = WastePercent / 100m,
-            };
-
-            QuoteExporter.ExportToFile(
-                order,
-                [(plate, SelectedPrinter!, SelectedSpool!, PlateResult!)],
-                OrderResult!,
-                ElectricityRate,
-                path);
+            await Task.Run(() =>
+                QuoteExporter.ExportToFile(order, [(plate, printer, spool, plateResult)],
+                    orderResult, electricityRate, path), ct);
         }
         catch (Exception ex)
         {
