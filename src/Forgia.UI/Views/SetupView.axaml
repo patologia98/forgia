@@ -47,7 +47,7 @@
                         <Label Grid.Row="1" Grid.Column="0" Content="{x:Static res:Strings.SetupLabelMaintenancePerH}"
                                VerticalAlignment="Center"/>
                         <NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding MaintenanceCostPerH}"
-                                       Minimum="0" FormatString="F4" Increment="0.01m" Margin="0,2"/>
+                                       Minimum="0" FormatString="F4" Increment="0.01" Margin="0,2"/>
                     </Grid>
                 </StackPanel>
             </Border>
