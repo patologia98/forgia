@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Vulnerability override: Tmds.DBus.Protocol 0.21.2 has GHSA-xrw6-gwf8-vvr9 -->
+    <PackageVersion Include="Tmds.DBus.Protocol" Version="0.93.0" />
+
     <!-- UI -->
     <PackageVersion Include="Avalonia" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.3.0" />

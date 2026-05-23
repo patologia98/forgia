@@ -28,7 +28,7 @@ dotnet build
 dotnet test
 ```
 
-Requires .NET 8 SDK. On first run, the SQLite database is created automatically at `%LOCALAPPDATA%/Forgia/forgia.db` (Linux: `~/.local/share/Forgia/forgia.db`).
+Requires .NET 10 SDK. On first run, the SQLite database is created automatically at `%LOCALAPPDATA%/Forgia/forgia.db` (Linux: `~/.local/share/Forgia/forgia.db`).
 
 ## Roadmap
 
