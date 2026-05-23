@@ -18,7 +18,7 @@ github repository: https://github.com/patologia98/forgia
 
 | Area | Choice |
 |---|---|
-| Runtime | .NET 8 |
+| Runtime | .NET 10 |
 | UI | Avalonia 11 + CommunityToolkit.Mvvm |
 | DB | SQLite + EF Core 8 |
 | Logging | Serilog |

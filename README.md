@@ -8,7 +8,7 @@ Forgia is an open-source desktop quoting tool for 3D printing bureaus. Import a 
 
 | Area | Library | Version | License |
 |---|---|---|---|
-| Runtime | .NET | 8.0 | MIT |
+| Runtime | .NET | 10.0 | MIT |
 | UI | Avalonia | 11.3.0 | MIT |
 | UI toolkit | CommunityToolkit.Mvvm | 8.4.0 | MIT |
 | Database | SQLite + EF Core | 8.0.11 | Apache 2.0 / MIT |

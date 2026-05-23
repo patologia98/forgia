@@ -6,7 +6,7 @@ Lean engineering rules. Violations are blockers, not suggestions.
 
 ## 1. Project setup
 
-- `net8.0`, C# 12, `<Nullable>enable</Nullable>`, `<ImplicitUsings>enable</ImplicitUsings>`
+- `net10.0`, C# 14, `<Nullable>enable</Nullable>`, `<ImplicitUsings>enable</ImplicitUsings>`
 - `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>` on Domain + Application.
 - `Directory.Build.props` for shared MSBuild props.
 - `Directory.Packages.props` for centralized NuGet versions.
