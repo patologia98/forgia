@@ -47,9 +47,9 @@ public partial class NewQuoteViewModel : ViewModelBase
 
     public async Task LoadDataAsync(CancellationToken ct = default)
     {
-        await using var db = await _dbFactory.CreateDbContextAsync(ct).ConfigureAwait(false);
-        var printers = await db.Printers.AsNoTracking().OrderBy(p => p.Name).ToListAsync(ct).ConfigureAwait(false);
-        var spools = await db.FilamentSpools.AsNoTracking().OrderBy(s => s.Name).ToListAsync(ct).ConfigureAwait(false);
+        await using var db = await _dbFactory.CreateDbContextAsync(ct);
+        var printers = await db.Printers.AsNoTracking().OrderBy(p => p.Name).ToListAsync(ct);
+        var spools = await db.FilamentSpools.AsNoTracking().OrderBy(s => s.Name).ToListAsync(ct);
 
         Printers.Clear();
         foreach (var p in printers) Printers.Add(p);

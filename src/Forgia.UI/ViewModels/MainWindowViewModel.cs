@@ -28,16 +28,16 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public async Task InitializeAsync(CancellationToken ct = default)
     {
-        await using var db = await _dbFactory.CreateDbContextAsync(ct).ConfigureAwait(false);
-        if (await db.Printers.AnyAsync(ct).ConfigureAwait(false))
-            await ShowQuoteAsync(ct).ConfigureAwait(false);
+        await using var db = await _dbFactory.CreateDbContextAsync(ct);
+        if (await db.Printers.AnyAsync(ct))
+            await ShowQuoteAsync(ct);
         else
             CurrentViewModel = _setupVm;
     }
 
     private async Task ShowQuoteAsync(CancellationToken ct = default)
     {
-        await _quoteVm.LoadDataAsync(ct).ConfigureAwait(false);
+        await _quoteVm.LoadDataAsync(ct);
         CurrentViewModel = _quoteVm;
     }
 }
