@@ -38,6 +38,13 @@ public partial class NewQuoteViewModel : ViewModelBase
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(HasBreakdown))] private PlateResult? _plateResult;
     [ObservableProperty] private OrderResult? _orderResult;
 
+    [ObservableProperty] private bool _isAddingSpool;
+    [ObservableProperty] private string _newSpoolName = string.Empty;
+    [ObservableProperty] private string _newSpoolMaterial = "PLA";
+    [ObservableProperty] private decimal _newSpoolCostPerKg = 20m;
+    [ObservableProperty] private decimal _newSpoolCurrentStockG = 1000m;
+    [ObservableProperty] private string _addSpoolError = string.Empty;
+
     private SliceData? _parsedData;
 
     public bool HasBreakdown => PlateResult is not null;
@@ -90,6 +97,45 @@ public partial class NewQuoteViewModel : ViewModelBase
         var path = await _dialogs.OpenSliceFileAsync();
         if (path is not null)
             LoadFile(path);
+    }
+
+    [RelayCommand]
+    private void ToggleAddSpool()
+    {
+        IsAddingSpool = !IsAddingSpool;
+        AddSpoolError = string.Empty;
+        if (IsAddingSpool)
+        {
+            NewSpoolName = string.Empty;
+            NewSpoolMaterial = "PLA";
+            NewSpoolCostPerKg = 20m;
+            NewSpoolCurrentStockG = 1000m;
+        }
+    }
+
+    [RelayCommand]
+    private async Task SaveNewSpoolAsync(CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(NewSpoolName))
+        {
+            AddSpoolError = Resources.Strings.ErrorSpoolNameRequired;
+            return;
+        }
+
+        await using var db = await _dbFactory.CreateDbContextAsync(ct);
+        var spool = new FilamentSpool
+        {
+            Name = NewSpoolName.Trim(),
+            Material = NewSpoolMaterial.Trim(),
+            CostPerKg = NewSpoolCostPerKg,
+            CurrentStockG = NewSpoolCurrentStockG,
+        };
+        db.FilamentSpools.Add(spool);
+        await db.SaveChangesAsync(ct);
+
+        Spools.Add(spool);
+        SelectedSpool = spool;
+        IsAddingSpool = false;
     }
 
     [RelayCommand(CanExecute = nameof(CanExport))]

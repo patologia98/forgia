@@ -73,7 +73,11 @@
   <data name="QuoteLabelTotal" xml:space="preserve"><value>TOTAL</value></data>
   <data name="QuoteExportButton" xml:space="preserve"><value>Export PDF</value></data>
   <data name="QuoteNewQuoteButton" xml:space="preserve"><value>New Quote</value></data>
+  <data name="QuoteAddSpoolButton" xml:space="preserve"><value>+ Add spool</value></data>
+  <data name="QuoteAddSpoolSave" xml:space="preserve"><value>Save</value></data>
+  <data name="QuoteAddSpoolCancel" xml:space="preserve"><value>Cancel</value></data>
 
   <data name="ErrorParseFile" xml:space="preserve"><value>Could not parse file: {0}</value></data>
   <data name="ErrorExportFailed" xml:space="preserve"><value>PDF export failed: {0}</value></data>
+  <data name="ErrorSpoolNameRequired" xml:space="preserve"><value>Spool name is required.</value></data>
 </root>
