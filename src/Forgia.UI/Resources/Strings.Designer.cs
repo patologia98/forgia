@@ -50,7 +50,11 @@ internal static class Strings
     public static string QuoteLabelTotal => Rm.GetString(nameof(QuoteLabelTotal))!;
     public static string QuoteExportButton => Rm.GetString(nameof(QuoteExportButton))!;
     public static string QuoteNewQuoteButton => Rm.GetString(nameof(QuoteNewQuoteButton))!;
+    public static string QuoteAddSpoolButton => Rm.GetString(nameof(QuoteAddSpoolButton))!;
+    public static string QuoteAddSpoolSave => Rm.GetString(nameof(QuoteAddSpoolSave))!;
+    public static string QuoteAddSpoolCancel => Rm.GetString(nameof(QuoteAddSpoolCancel))!;
 
     public static string ErrorParseFile => Rm.GetString(nameof(ErrorParseFile))!;
     public static string ErrorExportFailed => Rm.GetString(nameof(ErrorExportFailed))!;
+    public static string ErrorSpoolNameRequired => Rm.GetString(nameof(ErrorSpoolNameRequired))!;
 }
